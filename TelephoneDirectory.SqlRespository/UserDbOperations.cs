@@ -19,26 +19,28 @@ namespace TelephoneDirectory.SqlRespository
 
             using (var conn = new SqlConnection(ConnectionString))
             {
-               return conn.Query<int>(query, new
+                return conn.Query<int>(query, new
                 {
                     name = user.Name,
                     address = user.Address
                 }).FirstOrDefault();
 
-              
+
             }
         }
 
-        public void Update(User user, int id)
+        public void Update(User user)
         {
-            const string query = "UPDATE Users SET Name = @name and Address = @address where Id = @Id";
+            const string query = "UPDATE Users SET Name = @name, Address = @address where Id = @id";
 
             using (var conn = new SqlConnection(ConnectionString))
             {
                 conn.Execute(query, new
                 {
                     name = user.Name,
-                    address = user.Address
+                    address = user.Address,
+                    id = user.Id
+
                 });
             }
 
