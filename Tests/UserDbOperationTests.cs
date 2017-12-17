@@ -121,6 +121,24 @@ namespace Tests
 
         }
 
+        [TestCase("Shreya","Mumbai",null,"Chennai")]
+        [TestCase("Vijaya","Kerala","Viji",null)]
+        [TestCase("AR","Chembur",null,null)]
+
+        public void When_Update_Is_Called_After_Inserting_InValid_Data_It_Should_Throw_Exception(string newName,string newAddress,string updatedName,string updatedAddress)
+        {
+            var userDbOperation = new UserDbOperations();
+            var user = new User() {Name = newName, Address = newAddress};
+            var id = userDbOperation.Create(user);
+
+            user.Name = updatedName;
+            user.Address = updatedAddress;
+            user.Id = id;
+
+            Assert.Throws<SqlException>(()=>userDbOperation.Update(user));
+          
+            }
+        }
+
     }
-}
 
