@@ -10,21 +10,26 @@ namespace TelephoneDirectory.SqlRespository
     {
         public const string ConnectionString = "Data Source=BALA;Initial Catalog=TelephoneDirectory;Integrated Security=True";
 
-        public void Create(User user)
+        public int Create(User user)
         {
-            const string query = " INSERT INTO USers (Name,Address) VALUES (@name,@address) ";
+            const string query = @" INSERT INTO USers (Name,Address) VALUES (@name,@address);
+                                    SELECT SCOPE_IDENTITY();
+
+";
 
             using (var conn = new SqlConnection(ConnectionString))
             {
-                conn.Execute(query, new
+               return conn.Query<int>(query, new
                 {
                     name = user.Name,
                     address = user.Address
-                });
+                }).FirstOrDefault();
+
+              
             }
         }
 
-        public void Update(User user, int id )
+        public void Update(User user, int id)
         {
             const string query = "UPDATE Users SET Name = @name and Address = @address where Id = @Id";
 
@@ -67,7 +72,7 @@ namespace TelephoneDirectory.SqlRespository
             {
                 return conn.Query<User>("SELECT * FROM Users WHERE Id=@Id", new
                 {
-                   Id = uid
+                    Id = uid
                 }).FirstOrDefault();
             }
         }
