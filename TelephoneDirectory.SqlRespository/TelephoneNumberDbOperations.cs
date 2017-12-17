@@ -6,7 +6,7 @@ using Dapper;
 
 namespace TelephoneDirectory.SqlRespository
 {
-    class TelephoneNumberDbOperations
+    public class TelephoneNumberDbOperations
     {
         public const string ConnectionString = "Data Source=BALA;Initial Catalog=TelephoneDirectory;Integrated Security=True";
 
