@@ -3,8 +3,54 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 14
 VisualStudioVersion = 14.0.25420.1
 MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Web", "Web", "{3B5FCDF9-E1C8-46C9-8437-CED5078BCFD5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Services", "Services", "{813FEA87-149A-4F5C-B493-0B2AC0F3C72B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{8C8C991D-6252-4DEB-8B47-7EFFB6F10F3D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.Api", "TelephoneDirectory.Api\TelephoneDirectory.Api.csproj", "{7916EFD4-D296-4E23-8668-20554D87DB5B}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.Entities", "TelephoneDirectory.Entities\TelephoneDirectory.Entities.csproj", "{6679DF92-6C71-46FD-865C-E6808B4498AC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Repository", "Repository", "{EDAC070F-06F7-4415-9FA9-939E1C66531E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.SqlRespository", "TelephoneDirectory.SqlRespository\TelephoneDirectory.SqlRespository.csproj", "{BBA49CD1-F24A-4B0A-8636-6A7AF603B8F5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{91892DF9-143F-4C82-A1A6-CD56A8F6D356}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Tests", "Tests\Tests.csproj", "{EB28D3E3-D45B-4D3A-B21F-19C938E2BBB1}"
+EndProject
 Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{7916EFD4-D296-4E23-8668-20554D87DB5B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{7916EFD4-D296-4E23-8668-20554D87DB5B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{7916EFD4-D296-4E23-8668-20554D87DB5B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{7916EFD4-D296-4E23-8668-20554D87DB5B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6679DF92-6C71-46FD-865C-E6808B4498AC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6679DF92-6C71-46FD-865C-E6808B4498AC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6679DF92-6C71-46FD-865C-E6808B4498AC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6679DF92-6C71-46FD-865C-E6808B4498AC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBA49CD1-F24A-4B0A-8636-6A7AF603B8F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBA49CD1-F24A-4B0A-8636-6A7AF603B8F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBA49CD1-F24A-4B0A-8636-6A7AF603B8F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBA49CD1-F24A-4B0A-8636-6A7AF603B8F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB28D3E3-D45B-4D3A-B21F-19C938E2BBB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB28D3E3-D45B-4D3A-B21F-19C938E2BBB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB28D3E3-D45B-4D3A-B21F-19C938E2BBB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB28D3E3-D45B-4D3A-B21F-19C938E2BBB1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7916EFD4-D296-4E23-8668-20554D87DB5B} = {3B5FCDF9-E1C8-46C9-8437-CED5078BCFD5}
+		{6679DF92-6C71-46FD-865C-E6808B4498AC} = {8C8C991D-6252-4DEB-8B47-7EFFB6F10F3D}
+		{BBA49CD1-F24A-4B0A-8636-6A7AF603B8F5} = {EDAC070F-06F7-4415-9FA9-939E1C66531E}
+		{EB28D3E3-D45B-4D3A-B21F-19C938E2BBB1} = {91892DF9-143F-4C82-A1A6-CD56A8F6D356}
 	EndGlobalSection
 EndGlobal
