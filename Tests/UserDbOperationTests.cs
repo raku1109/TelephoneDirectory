@@ -6,7 +6,7 @@ using TelephoneDirectory.SqlRespository;
 using Dapper;
 namespace Tests
 {
-    [TestFixture]
+    [TestFixture] // this is an attribute                          
     public class UserDbOperationTests
     {
         [Test]

@@ -12,6 +12,17 @@ namespace TelephoneDirectory.SqlRespository
     {
         public const string ConnectionString = "Data Source=BALA;Initial Catalog=TelephoneDirectory;Integrated Security=True";
 
-       
+        public List<PhoneNumbers> GetById(int id)
+        {
+            return null;
+
+        }
+
+        public void UpdatePhoneNumber(PhoneNumbers  int phoneNumberId)
+        {
+
+        }
+
+
     }
 }

@@ -1,0 +1,19 @@
+﻿{
+  "jobs": [
+    {
+      "name": "Test Run",
+      "implementor": "Tests.TestRun,Tests"
+      
+
+    }
+    , {
+      "name": "Clean Database",
+      "implementor": "Tests.CleanDatabase,Tests"
+      
+    }, {
+      "name": "Clean Files",
+      "implementor": "TelephoneDirectory.OneTimeRun.Jobs.RemoveTemporaryFiles,TElephoneDirectory.OneTimeRun"
+      
+    }
+  ] 
+}
