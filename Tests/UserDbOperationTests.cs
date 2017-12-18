@@ -165,6 +165,20 @@ namespace Tests
                 conn.Execute($"DELETE FROM Users WHERE Id={id}");
             }
 
+        }
+
+        [Test]
+        public void When_Delete_Is_Called_For_Valid_Data_In_Database_It_Should_Delete()
+        {
+            var userDbOperation = new UserDbOperations();
+            var user = new User() {Name= "Shreya",Address = "Pune"};
+            var id = userDbOperation.Create(user);
+
+            user.Id = id;
+
+            userDbOperation.Delete(user);
+
+            Assert.Pass();
 
         }
 

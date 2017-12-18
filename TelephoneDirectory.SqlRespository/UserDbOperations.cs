@@ -46,15 +46,15 @@ namespace TelephoneDirectory.SqlRespository
 
         }
 
-        public void Delete(int uid)
+        public void Delete(User user)
         {
-            const string query = "Delete from Users where Id = @Id";
+            const string query = "Delete from Users where Id = @id";
 
             using (var conn = new SqlConnection(ConnectionString))
             {
                 conn.Execute(query, new
                 {
-                    Id = uid
+                    id = user.Id
                 });
 
             }
