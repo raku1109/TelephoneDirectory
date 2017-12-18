@@ -107,7 +107,7 @@ namespace Tests
             user.Name = "Vijaya";
             user.Address = "Mumbai";
             user.Id = id;
-           
+
 
             userDbOperation.Update(user);
 
@@ -121,11 +121,12 @@ namespace Tests
 
         }
 
-        [TestCase("Shreya","Mumbai",null,"Chennai")]
-        [TestCase("Vijaya","Kerala","Viji",null)]
-        [TestCase("AR","Chembur",null,null)]
+        [TestCase("Shreya", "Mumbai", null, "Chennai")]
+        [TestCase("Vijaya", "Kerala", "Viji", null)]
+        [TestCase("AR", "Chembur", null, null)]
 
-        public void When_Update_Is_Called_After_Inserting_InValid_Data_It_Should_Throw_Exception(string newName,string newAddress,string updatedName,string updatedAddress)
+        public void When_Update_Is_Called_After_Inserting_InValid_Data_It_Should_Throw_Exception(string newName,
+            string newAddress, string updatedName, string updatedAddress)
         {
             var userDbOperation = new UserDbOperations();
             var user = new User() {Name = newName, Address = newAddress};
@@ -135,10 +136,39 @@ namespace Tests
             user.Address = updatedAddress;
             user.Id = id;
 
-            Assert.Throws<SqlException>(()=>userDbOperation.Update(user));
-          
+            Assert.Throws<SqlException>(() => userDbOperation.Update(user));
+
+
+
+        }
+
+        [TestCase("Rakesh","Bangalore", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
+        [TestCase("Varun","USA", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345","Dallas")]
+        [TestCase("Anurag","Germany","Arun", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
+
+        public void When_Update_Is_Called_After_Setting_Data_Having_Exceeded_Length_It_Should_Throw_A_SqlException(string newName,
+            string newAddress, string updatedName, string updatedAddress)
+        {
+            var userDbOperation = new UserDbOperations();
+            var user = new User() {Name = newName,Address=newAddress};
+
+            var id = userDbOperation.Create(user);
+
+            user.Name = updatedName;
+            user.Address = updatedAddress;
+            user.Id = id;
+
+            Assert.Throws<SqlException>(() => userDbOperation.Update(user));
+
+            using (var conn = new SqlConnection(UserDbOperations.ConnectionString))
+            {
+                conn.Execute($"DELETE FROM Users WHERE Id={id}");
             }
+
+
         }
 
     }
+
+}
 
