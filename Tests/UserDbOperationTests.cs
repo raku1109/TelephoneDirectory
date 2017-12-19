@@ -5,6 +5,7 @@ using TelephoneDirectory.Entities;
 using TelephoneDirectory.SqlRespository;
 using Dapper;
 using NUnit.Framework.Interfaces;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -15,7 +16,7 @@ namespace Tests
         public void When_Create_Is_Called_With_Valid_Data()
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Address = "Mumbai", Name = "Harish"};
+            var user = new User() { Address = "Mumbai", Name = "Harish" };
             userDbOperation.Create(user);
 
             using (var conn = new SqlConnection(UserDbOperations.ConnectionString))
@@ -34,7 +35,7 @@ namespace Tests
         public void When_Create_Is_Called_With_Name_As_Null_It_Throws_SqlException()
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Name = null, Address = "Mumbai"};
+            var user = new User() { Name = null, Address = "Mumbai" };
             Assert.Throws<SqlException>(() => userDbOperation.Create(user));
         }
 
@@ -42,7 +43,7 @@ namespace Tests
         public void When_Create_Is_Called_With_Address_As_Null_It_Throws_SqlException()
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Name = "SomeName", Address = null};
+            var user = new User() { Name = "SomeName", Address = null };
             Assert.Throws<SqlException>(() => userDbOperation.Create(user));
         }
 
@@ -52,7 +53,7 @@ namespace Tests
         public void When_Create_Is_Called_With_Invalid_Data_Throws_SqlException(string name, string address)
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Name = name, Address = address};
+            var user = new User() { Name = name, Address = address };
             Assert.Throws<SqlException>(() => userDbOperation.Create(user));
         }
 
@@ -65,7 +66,7 @@ namespace Tests
         public void When_Create_Is_Called_With_Valid_Data_SavesData(string name, string address)
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Address = address, Name = name};
+            var user = new User() { Address = address, Name = name };
             var id = userDbOperation.Create(user);
             user.Id = id;
             Assert.That(id > 0);
@@ -93,7 +94,7 @@ namespace Tests
             string address)
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Name = name, Address = address};
+            var user = new User() { Name = name, Address = address };
             Assert.Throws<SqlException>(() => userDbOperation.Create(user));
         }
 
@@ -101,7 +102,7 @@ namespace Tests
         public void When_Update_Is_Called_After_Inserting_Valid_Data_It_Should_Update()
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Name = "Rakesh", Address = "Bangalore"};
+            var user = new User() { Name = "Rakesh", Address = "Bangalore" };
             var id = userDbOperation.Create(user);
 
             user.Name = "Vijaya";
@@ -129,7 +130,7 @@ namespace Tests
             string newAddress, string updatedName, string updatedAddress)
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Name = newName, Address = newAddress};
+            var user = new User() { Name = newName, Address = newAddress };
             var id = userDbOperation.Create(user);
 
             user.Name = updatedName;
@@ -142,15 +143,15 @@ namespace Tests
 
         }
 
-        [TestCase("Rakesh","Bangalore", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
-        [TestCase("Varun","USA", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345","Dallas")]
-        [TestCase("Anurag","Germany","Arun", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
+        [TestCase("Rakesh", "Bangalore", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
+        [TestCase("Varun", "USA", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345", "Dallas")]
+        [TestCase("Anurag", "Germany", "Arun", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
 
         public void When_Update_Is_Called_After_Setting_Data_Having_Exceeded_Length_It_Should_Throw_A_SqlException(string newName,
             string newAddress, string updatedName, string updatedAddress)
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Name = newName,Address=newAddress};
+            var user = new User() { Name = newName, Address = newAddress };
 
             var id = userDbOperation.Create(user);
 
@@ -171,7 +172,7 @@ namespace Tests
         public void When_Delete_Is_Called_For_Valid_Data_In_Database_It_Should_Delete()
         {
             var userDbOperation = new UserDbOperations();
-            var user = new User() {Name= "Shreya",Address = "Pune"};
+            var user = new User() { Name = "Shreya", Address = "Pune" };
             var id = userDbOperation.Create(user);
 
             user.Id = id;
@@ -182,7 +183,22 @@ namespace Tests
 
         }
 
+        [Test]
+        public void When_GetAll_Is_Called_It_SHould_Return_A_List_Of_Users_And_Pass()
+        {
+            var userDbOperation = new UserDbOperations();
+
+            List<User> list = userDbOperation.GetAll();
+
+            Assert.Pass();
+
+        }
+
+
     }
 
+
 }
+
+
 
