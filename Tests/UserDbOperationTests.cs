@@ -194,6 +194,21 @@ namespace Tests
 
         }
 
+        [Test]
+        public void When_GetById_Is_Called_It_Should_Return_A_User_With_The_Id_And_Pass()
+        {
+            var userDbOperation = new UserDbOperations();
+            var user = new User() { Name = "Joe", Address = "Pune" };
+            var id = userDbOperation.Create(user);
+
+            user.Id = id;
+
+            var person = userDbOperation.GetById(user);
+
+            Assert.Pass();
+
+        }
+
 
     }
 

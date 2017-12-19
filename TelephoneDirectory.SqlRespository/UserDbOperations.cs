@@ -68,13 +68,13 @@ namespace TelephoneDirectory.SqlRespository
             }
         }
 
-        public User GetById(int uid)
+        public User GetById(User user)
         {
             using (var conn = new SqlConnection(ConnectionString))
             {
-                return conn.Query<User>("SELECT * FROM Users WHERE Id=@Id", new
+                return conn.Query<User>("SELECT * FROM Users WHERE Id=@id", new
                 {
-                    Id = uid
+                   id= user.Id
                 }).FirstOrDefault();
             }
         }
