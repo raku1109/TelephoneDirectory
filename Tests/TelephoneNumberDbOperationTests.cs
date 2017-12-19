@@ -41,5 +41,15 @@ namespace Tests
             Assert.Throws<SqlException>(() => telephoneDbOperation.Create(telephone));
 
         }
+
+        [TestCase(1, "123456789012345678901234567890123456789012345678901","Home")]
+        [TestCase(2,"+91 8082427435", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
+
+        public void When_Create_Is_Called_With_Data_Of_Exceeded_Length_It_Should_Throw_A_SqlException(int uid, string number, string type)
+        {
+            var telephoneDbOperation = new TelephoneNumberDbOperations();
+            var telephone = new TelephoneNumber() { UId = uid, PhoneNumber = number, NumberType = type };
+            Assert.Throws<SqlException>(() => telephoneDbOperation.Create(telephone));
+        }
     }
 }
