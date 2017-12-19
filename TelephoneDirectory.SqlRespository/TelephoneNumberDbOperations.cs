@@ -10,18 +10,24 @@ namespace TelephoneDirectory.SqlRespository
     {
         public const string ConnectionString = "Data Source=BALA;Initial Catalog=TelephoneDirectory;Integrated Security=True";
 
-        public void Create(TelephoneNumber telephoneNumber)
+        public int Create(TelephoneNumber telephoneNumber)
         {
-            const string query = "INSERT into TelephoneNumbers (UId, PhoneNumber, NumberType) VALUES (@uid,@phoneNumber,@numberType) ";
+            const string query =
+                @"INSERT into TelephoneNumbers (UId, PhoneNumber, NumberType) VALUES (@uid,@phoneNumber,@numberType) ;
+                                  SELECT SCOPE_IDENTITY() ;
+";
 
             using (var con = new SqlConnection(ConnectionString))
             {
-                con.Execute(query, new
+                return con.Query<int>(query, new
                 {
+                    pid = telephoneNumber.PId,
                     uid = telephoneNumber.UId,
                     phoneNumber = telephoneNumber.PhoneNumber,
-                    numberType = telephoneNumber.NumberType                
-                });
+                    numberType = telephoneNumber.NumberType
+                }).FirstOrDefault();
+
+
             }
 
         }
