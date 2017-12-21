@@ -70,13 +70,13 @@ namespace TelephoneDirectory.SqlRespository
             }
         }
 
-        public TelephoneNumber GetById(int pid)
+        public TelephoneNumber GetById(TelephoneNumber telephoneNumber)
         {
             using (var con = new SqlConnection(ConnectionString))
             {
-                return con.Query<TelephoneNumber>("SELECT * FROM TelephoneNumbers WHERE PId = @PId", new
+                return con.Query<TelephoneNumber>("SELECT * FROM TelephoneNumbers WHERE PId = @pid", new
                 {
-                    PId = pid
+                    pid = telephoneNumber.PId
                 }).FirstOrDefault();
 
             }

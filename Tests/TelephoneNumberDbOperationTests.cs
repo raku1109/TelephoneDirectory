@@ -4,6 +4,7 @@ using NUnit.Framework;
 using TelephoneDirectory.SqlRespository;
 using TelephoneDirectory.Entities;
 using System.Data.SqlClient;
+using System.Collections.Generic;
 
 namespace Tests
 {
@@ -137,6 +138,34 @@ namespace Tests
             telephoneDbOperation.Delete(telephone);
 
             Assert.Pass();
+        }
+
+        [Test]
+
+        public void When_GetAll_Is_Called_It_Should_Return_A_List_Of_TelePhoneNumbers_And_Pass()
+        {
+            var telephoneDbOperation = new TelephoneNumberDbOperations();
+
+            List<TelephoneNumber> list = telephoneDbOperation.GetAll();
+
+            Assert.Pass();
+
+        }
+
+        [Test]
+
+        public void When_GetById_Is_Called_It_Should_Return_The_TelephoneNumber_With_The_Id_And_Pass()
+        {
+            var telephoneDbOperation = new TelephoneNumberDbOperations();
+            var telephone = new TelephoneNumber() {UId = 3,PhoneNumber = "+91 9920802227",NumberType = "Office"};
+            var pid = telephoneDbOperation.Create(telephone);
+
+            telephone.PId = pid;
+
+            var person = telephoneDbOperation.GetById(telephone);
+
+            Assert.Pass();
+
         }
     }
 }
