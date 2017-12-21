@@ -45,6 +45,7 @@ namespace Tests
 
         [TestCase(1, "123456789012345678901234567890123456789012345678901","Home")]
         [TestCase(2,"+91 8082427435", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
+        [TestCase(3, "123456789012345678901234567890123456789012345678901", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
 
         public void When_Create_Is_Called_With_Data_Of_Exceeded_Length_It_Should_Throw_A_SqlException(int uid, string number, string type)
         {
@@ -91,6 +92,26 @@ namespace Tests
 
         public void When_Update_Is_Called_After_Inserting_Invalid_Update_Data_It_Should_Throw_A_SqlException(int uid,string number,string type,
             int updatedUid,string updatedNumber,string updatedType)
+        {
+            var telephoneDbOperation = new TelephoneNumberDbOperations();
+            var telephone = new TelephoneNumber() {UId = uid,PhoneNumber = number,NumberType = type};
+            var pid = telephoneDbOperation.Create(telephone);
+
+            telephone.UId = updatedUid;
+            telephone.PhoneNumber = updatedNumber;
+            telephone.NumberType = updatedType;
+
+            telephone.PId = pid;
+
+            Assert.Throws<SqlException>(() => telephoneDbOperation.Update(telephone));
+        }
+
+        [TestCase(1, "Valid Number", "Valid Type", 1, "123456789012345678901234567890123456789012345678901", "Home")]
+        [TestCase(2, "Valid Number", "Valid Type", 2, "+91 8082427435", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
+        [TestCase(3, "Valid Number", "Valid Type", 3, "123456789012345678901234567890123456789012345678901", "abcdefghijklmnopqrstuvwxyz1234567890qwertyuiop12345")]
+
+        public void When_Update_Is_Called_After_Setting_Exceeded_Length_Updated_Values_It_Should_Throw_A_SqlException(int uid, string number, string type,
+            int updatedUid, string updatedNumber, string updatedType)
         {
             var telephoneDbOperation = new TelephoneNumberDbOperations();
             var telephone = new TelephoneNumber() {UId = uid,PhoneNumber = number,NumberType = type};
