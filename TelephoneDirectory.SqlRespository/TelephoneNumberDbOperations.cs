@@ -32,14 +32,16 @@ namespace TelephoneDirectory.SqlRespository
 
         }
 
-        public void Update( TelephoneNumber telephoneNumber,int pid)
+        public void Update( TelephoneNumber telephoneNumber)
         {
-            const string query = "UPDATE TelephoneNumbers SET PhoneNumber = @number where PId=@pid";
+            const string query = @"UPDATE TelephoneNumbers SET PhoneNumber = @number, NumberType = @type,UID = @uid WHERE PId=@pid";
 
             using (var con = new SqlConnection(ConnectionString))
             {
                 con.Execute(query, new
                 {
+                    uid = telephoneNumber.UId,
+                    type = telephoneNumber.NumberType,
                     number = telephoneNumber.PhoneNumber,
                     pid = telephoneNumber.PId
                 });

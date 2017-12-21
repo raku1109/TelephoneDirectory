@@ -4,6 +4,7 @@ using NUnit.Framework;
 using TelephoneDirectory.SqlRespository;
 using TelephoneDirectory.Entities;
 using System.Data.SqlClient;
+using System.IO.Pipes;
 
 namespace Tests
 {
@@ -50,6 +51,38 @@ namespace Tests
             var telephoneDbOperation = new TelephoneNumberDbOperations();
             var telephone = new TelephoneNumber() { UId = uid, PhoneNumber = number, NumberType = type };
             Assert.Throws<SqlException>(() => telephoneDbOperation.Create(telephone));
+        }
+
+        [Test]
+
+        public void When_Update_Is_Called_After_Inserting_Valid_Data_It_Should_Update()
+        {
+            var telephoneDbOperation = new TelephoneNumberDbOperations();
+            var telephone = new TelephoneNumber() {UId = 2,PhoneNumber = "+91 9930774145",NumberType = "Work"};
+            var pid = telephoneDbOperation.Create(telephone);
+
+            telephone.UId = 3;
+            telephone.PhoneNumber = "+91 9820175604";
+            telephone.NumberType = "Home";
+
+            telephone.PId = pid;
+
+            telephoneDbOperation.Update(telephone);
+
+            using (var con = new SqlConnection(TelephoneNumberDbOperations.ConnectionString))
+            {
+                var createdNumber = con.Query<TelephoneNumber>($"SELECT * FROM TelephoneNumbers WHERE PId = {pid}")
+                    .FirstOrDefault();
+                   
+
+                Assert.AreEqual(createdNumber.PhoneNumber,telephone.PhoneNumber);
+                Assert.AreEqual(createdNumber.NumberType,telephone.NumberType);
+            }
+
+
+
+
+
         }
     }
 }
