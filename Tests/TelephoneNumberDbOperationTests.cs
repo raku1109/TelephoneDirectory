@@ -77,12 +77,32 @@ namespace Tests
 
                 Assert.AreEqual(createdNumber.PhoneNumber,telephone.PhoneNumber);
                 Assert.AreEqual(createdNumber.NumberType,telephone.NumberType);
-            }
+            }          
 
+        }
 
+        [TestCase(1,"Valid Number","Valid Type",null,null,null)]
+        [TestCase(2,"Valid Number","Valid Type",4,null,null)]
+        [TestCase(3, "Valid Number", "Valid Type", null,"New Number",null)]
+        [TestCase(4, "Valid Number", "Valid Type", null, null,"New Type")]
+      //[TestCase(5, "Valid Number", "Valid Type", null, "New Number","New Type")]
+        [TestCase(6, "Valid Number", "Valid Type", 6, null, "New Type")]
+        [TestCase(7, "Valid Number", "Valid Type", 6,"New Number",null)]
 
+        public void When_Update_Is_Called_After_Inserting_Invalid_Update_Data_It_Should_Throw_A_SqlException(int uid,string number,string type,
+            int updatedUid,string updatedNumber,string updatedType)
+        {
+            var telephoneDbOperation = new TelephoneNumberDbOperations();
+            var telephone = new TelephoneNumber() {UId = uid,PhoneNumber = number,NumberType = type};
+            var pid = telephoneDbOperation.Create(telephone);
 
+            telephone.UId = updatedUid;
+            telephone.PhoneNumber = updatedNumber;
+            telephone.NumberType = updatedType;
 
+            telephone.PId = pid;
+
+            Assert.Throws<SqlException>(() => telephoneDbOperation.Update(telephone));
         }
     }
 }
