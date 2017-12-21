@@ -50,14 +50,14 @@ namespace TelephoneDirectory.SqlRespository
 
         }
 
-        public void Delete(int pid)
+        public void Delete(TelephoneNumber telephoneNumber)
         {
-            const string query = "DELETE FROM TelephoneNumbers WHERE PId = @PId";
+            const string query = "DELETE FROM TelephoneNumbers WHERE PId = @pid";
             using (var con = new SqlConnection(ConnectionString))
             {
                 con.Execute(query, new
                 {
-                   PId = pid
+                  pid = telephoneNumber.PId
                 });
             }
         }

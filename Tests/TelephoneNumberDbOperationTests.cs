@@ -4,7 +4,6 @@ using NUnit.Framework;
 using TelephoneDirectory.SqlRespository;
 using TelephoneDirectory.Entities;
 using System.Data.SqlClient;
-using System.IO.Pipes;
 
 namespace Tests
 {
@@ -124,6 +123,20 @@ namespace Tests
             telephone.PId = pid;
 
             Assert.Throws<SqlException>(() => telephoneDbOperation.Update(telephone));
+        }
+
+        [Test]
+        public void When_Delete_Is_Called_With_Valid_Data_It_Should_Delete()
+        {
+            var telephoneDbOperation = new TelephoneNumberDbOperations();
+            var telephone = new TelephoneNumber() {UId = 3,PhoneNumber = "+91 9819935133",NumberType = "Work"};
+            var pid = telephoneDbOperation.Create(telephone);
+
+            telephone.PId = pid;
+
+            telephoneDbOperation.Delete(telephone);
+
+            Assert.Pass();
         }
     }
 }
