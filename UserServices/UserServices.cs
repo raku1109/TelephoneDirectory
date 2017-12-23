@@ -9,18 +9,32 @@ namespace UserServices
         public bool Create(User user)
         {
             var userServices = new UserDbOperations();
-            int id = userServices.Create(user);
-
-            user.Id = id;
-
-            return true;
-
+            
+            if (IsValid(user))
+            {
+                var id = userServices.Create(user);
+                user.Id = id;
+                return true;
+            }
+            return false;
         }
+
+
+        private bool IsValid(User user)
+        {
+            if (user.Name == null || user.Address == null)
+                return false;
+            if (user.Name.Length > 50 || user.Address.Length > 50)
+                return false;
+            return true;
+        }
+
+        #region NotRequiredNow
 
         public void Update(User user)
         {
             var userServices = new UserDbOperations();
-            userServices.Update(user);            
+            userServices.Update(user);
         }
 
         public void Delete(User user)
@@ -39,8 +53,10 @@ namespace UserServices
         public List<User> GetAll()
         {
             var userServices = new UserDbOperations();
-            List<User> list = userServices.GetAll();
+            var list = userServices.GetAll();
             return list;
         }
-    } 
+
+        #endregion
+    }
 }
