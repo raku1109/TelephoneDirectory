@@ -9,8 +9,11 @@ namespace UserServices
         public bool Create(User user)
         {
             var userServices = new UserDbOperations();
-            userServices.Create(user);
-            return false;
+            int id = userServices.Create(user);
+
+            user.Id = id;
+
+            return true;
 
         }
 
