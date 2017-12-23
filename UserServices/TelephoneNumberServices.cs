@@ -1,16 +1,32 @@
 ﻿using System.Collections.Generic;
-using TelephoneDirectory.SqlRespository;
 using TelephoneDirectory.Entities;
+using TelephoneDirectory.SqlRespository;
 
 namespace UserServices
 {
-    class TelephoneNumberServices
+    internal class TelephoneNumberServices
     {
         public bool Create(TelephoneNumber telephone)
         {
             var numberServices = new TelephoneNumberDbOperations();
-            numberServices.Create(telephone);
+
+            if (IsValid(telephone))
+            {
+                var pid = numberServices.Create(telephone);
+                telephone.PId = pid;
+                return true;
+            }
+            
             return false;
+        }
+
+        private bool IsValid(TelephoneNumber telephone)
+        {
+            if (telephone.PhoneNumber == null || telephone.NumberType == null || telephone.UId == 0)
+                return false;
+            if (telephone.PhoneNumber.Length > 50 || telephone.NumberType.Length > 50)
+                return false;
+            return true;
         }
 
         public void Update(TelephoneNumber telephone)
@@ -35,7 +51,7 @@ namespace UserServices
         public List<TelephoneNumber> GetAll()
         {
             var numberServices = new TelephoneNumberDbOperations();
-            List<TelephoneNumber> number = numberServices.GetAll();
+            var number = numberServices.GetAll();
             return number;
         }
     }
