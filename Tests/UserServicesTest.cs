@@ -47,7 +47,7 @@ namespace Tests
 
 
         [Test]
-        public void Create_User_Via_Service()
+        public void Create_User_Via_Service_With_Valid_Data()
         {
             IUserDbOperations repo = new MockUserDbOperation();
             var userServices = new UserServices(repo);
@@ -67,6 +67,29 @@ namespace Tests
             Assert.IsTrue(userServices.Update(user));
 
             
+        }
+
+        [Test]
+
+        public void Delete_Called_Via_Service_With_Valid_Data()
+        {
+            var repo = new MockUserDbOperation();
+            var userServices = new UserServices(repo);
+            var user = new User() {Id = 4};
+
+            Assert.IsTrue(userServices.Delete(user));
+        }
+
+
+        [Test]
+
+        public void Delete_Called_Via_Service_With_Invalid_Data()
+        {
+            var repo = new MockUserDbOperation();
+            var userService = new UserServices(repo);
+            var user = new User() {Id = 0};
+
+            Assert.IsFalse(userService.Delete(user));
         }
     }
 
