@@ -43,7 +43,7 @@ namespace TelephoneDirectory.Services
                 _repo.Update(user);
                 return true;
             }
-            
+
             return false;
         }
 
@@ -58,10 +58,21 @@ namespace TelephoneDirectory.Services
             return true;
         }
 
-        public void Delete(User user)
+        public bool Delete(User user)
         {
-            var userServices = new UserDbOperations();
-            userServices.Delete(user);
+            if (IsValidDelete(user))
+            {
+                _repo.Delete(user);
+                return true;
+            }
+            return false;
+        }
+
+        private bool IsValidDelete(User user)
+        {
+            if (user.Id == 0)
+                return false;
+            return true;
         }
 
         public User GetById(User user)
