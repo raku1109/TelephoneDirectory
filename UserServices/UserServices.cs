@@ -2,17 +2,23 @@
 using TelephoneDirectory.Entities;
 using TelephoneDirectory.SqlRespository;
 
-namespace UserServices
+namespace TelephoneDirectory.Services
 {
     public class UserServices
     {
+        private readonly IUserDbOperations _repo;
+
+        public UserServices(IUserDbOperations repo)
+        {
+            _repo = repo;
+        }
+
+
         public bool Create(User user)
         {
-            var userServices = new UserDbOperations();
-            
             if (IsValid(user))
             {
-                var id = userServices.Create(user);
+                var id = _repo.Create(user);
                 user.Id = id;
                 return true;
             }
@@ -29,12 +35,27 @@ namespace UserServices
             return true;
         }
 
-        #region NotRequiredNow
 
-        public void Update(User user)
+        public bool Update(User user)
         {
-            var userServices = new UserDbOperations();
-            userServices.Update(user);
+            if (IsValidUpdate(user))
+            {
+                _repo.Update(user);
+                return true;
+            }
+            
+            return false;
+        }
+
+        private bool IsValidUpdate(User user)
+        {
+            if (user.Id == 0)
+                return false;
+            if (user.Name == null || user.Address == null)
+                return false;
+            if (user.Name.Length > 50 || user.Address.Length > 50)
+                return false;
+            return true;
         }
 
         public void Delete(User user)
@@ -56,7 +77,5 @@ namespace UserServices
             var list = userServices.GetAll();
             return list;
         }
-
-        #endregion
     }
 }
