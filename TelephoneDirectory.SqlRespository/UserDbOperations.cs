@@ -6,7 +6,21 @@ using TelephoneDirectory.Entities;
 
 namespace TelephoneDirectory.SqlRespository
 {
-    public class UserDbOperations
+    public interface IUserDbOperations
+    {
+        int Create(User user);
+
+        void Update(User user);
+
+        void Delete(User user);
+
+        List<User> GetAll();
+
+        User GetById(User user);
+
+    }
+
+    public class UserDbOperations:IUserDbOperations
     {
         public const string ConnectionString = "Data Source=BALA;Initial Catalog=TelephoneDirectory;Integrated Security=True";
 
